@@ -1,0 +1,56 @@
+// Status 05138689000139
+
+{
+  "abertura": "13/09/2001",
+  "situacao": "BAIXADA",
+  "tipo": "MATRIZ",
+  "nome": "008 GALETO LTDA",
+  "fantasia": "KY GALETO",
+  "porte": "MICRO EMPRESA",
+  "natureza_juridica": "206-2 - Sociedade Empres�ria Limitada",
+  "qsa": [
+    {
+      "nome": "GILCE TELLES DE CARVALHO",
+      "qual": "49-S�cio-Administrador"
+    },
+    {
+      "nome": "VALTER DA COSTA MASSEAUX",
+      "qual": "22-S�cio"
+    }
+  ],
+  "logradouro": "RUA FREDERICO MEIER",
+  "numero": "5",
+  "complemento": "A LOJA",
+  "municipio": "RIO DE JANEIRO",
+  "bairro": "MEIER",
+  "uf": "RJ",
+  "cep": "20.780-010",
+  "data_situacao": "09/02/2015",
+  "motivo_situacao": "OMISS�O CONTUMAZ",
+  "Status": "05.138.689/0001-39",
+  "ultima_atualizacao": "2023-07-09T23:59:59.000Z",
+  "status": "OK",
+  "email": "",
+  "telefone": "",
+  "efr": "",
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "atividade_principal": [
+    {
+      "code": "00.00-0-00",
+      "text": "********"
+    }
+  ],
+  "atividades_secundarias": [
+    {
+      "code": "00.00-0-00",
+      "text": "N�o informada"
+    }
+  ],
+  "capital_social": "0.00",
+  "extra": {},
+  "billing": {
+    "free": true,
+    "database": true
+  }
+}
