@@ -83,14 +83,18 @@ namespace LocalizeApi.Controllers
                 {
                     await _TarefaService.CreateTarefa(Tarefa);
 
-                    var TarefaRertornoData = await _TarefaService.GetTarefa(Tarefa.Id);
-                    _rabitMQProducer.SendProductMessage(TarefaRertornoData);
+                    var TarefaRertornoDataCreate = await _TarefaService.GetTarefa(Tarefa.Id);
+                    _rabitMQProducer.SendProductMessage(TarefaRertornoDataCreate);
 
                     return Ok(Tarefa);
                 }
                 else {
 
                     await _TarefaService.UpdateTarefa(Tarefa);
+
+                    var TarefaRertornoDataUpdate = await _TarefaService.GetTarefa(Tarefa.Id);
+                    _rabitMQProducer.SendProductMessage(TarefaRertornoDataUpdate); 
+
                     return Ok(Tarefa);
 
                 }
@@ -103,34 +107,7 @@ namespace LocalizeApi.Controllers
                 return BadRequest("Request inválido" + ex.ToString());
             }
         }
-
-        [HttpPut("{Status}")]
-        public async Task<ActionResult> ImplementaServicoSerasa(string Status, [FromBody] Tarefa Tarefa)
-        {
-            try
-            {
-
-                var Tarefas = await _TarefaService.GetTarefaByStatus(Status.ToString());
-
-              
-                if (Tarefas.Count() == 0)
-                {
-                    await _TarefaService.CreateTarefaByStatus(Status.ToString());
-                    return Ok($"Tarefa com Status={Status} atualizado com sucesso");
-                 
-                }
-                else
-                {
-                    return Ok($"Esse Status {Status} ja realizou a implementacao Serasa");
-                }
-            }
-            catch (Exception)
-            {
-                return BadRequest("Request inválido");
-            }
-        }
-
-
+   
 
 
         [HttpDelete("{id}")]
@@ -142,6 +119,9 @@ namespace LocalizeApi.Controllers
                 if (Tarefa != null)
                 {
                     await _TarefaService.DeleteTarefa(Tarefa);
+              
+                    _rabitMQProducer.SendProductMessage("Delete id Tarefa"+ id.ToString());
+
                     return Ok(Tarefa);
                 }
                 else

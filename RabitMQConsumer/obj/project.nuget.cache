@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "c1jcivq4MADs75NMNeF0FAZvApEmUnAg1w2KVEjX581ZKuelgg0l/c6hAhZTqjExfzLHueW/lczLzg2tQRD2zg==",
+  "dgSpecHash": "IA2P2+S6gesoWcHTMVsIHbRWgtYFnxQAgpq19WLFy/6gp9+hQNBoOSvpMQinlQv+tFcoytLBzH3TpDLcbcP62Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\guga\\Desktop\\Teste_b3_projeto\\back_end\\B3_back_end_\\RabitMQConsumer\\Worker.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\guga\\.nuget\\packages\\microsoft.office.interop.outlook\\15.0.4797.1004\\microsoft.office.interop.outlook.15.0.4797.1004.nupkg.sha512",
     "C:\\Users\\guga\\.nuget\\packages\\rabbitmq.client\\6.5.0\\rabbitmq.client.6.5.0.nupkg.sha512",
     "C:\\Users\\guga\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
     "C:\\Users\\guga\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512"

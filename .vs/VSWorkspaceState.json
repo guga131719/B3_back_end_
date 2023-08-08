@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\RabitMQConsumer",
+    "\\TarefaApi",
+    "\\TestProjectB3BackEnd"
   ],
   "SelectedNode": "\\TarefaApi.sln",
   "PreviewInSolutionExplorer": false

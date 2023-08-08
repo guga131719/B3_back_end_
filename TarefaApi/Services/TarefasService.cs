@@ -82,48 +82,7 @@ namespace LocalizeApi.Services
         }
 
 
-        public async Task CreateTarefaByStatus(string Status)
-        {
-
-            Random random = new Random();
-            int randomNumber = random.Next();
-
-
-            var Tarefa = new Tarefa
-            {
-                Status = Status,
-                Id= randomNumber
-
-            };
-
-            // Realizar a solicitação de extração na ReceitaWS
-            var options = new RestClientOptions("https://receitaws.com.br")
-            {
-                MaxTimeout = -1,
-            };
-            var client = new RestClient(options);
-            var request = new RestRequest("/v1/Status/"+ Status, Method.Get);
-            request.AddHeader("Accept", "application/json");
-            var body = @"";
-            request.AddParameter("text/plain", body, ParameterType.RequestBody);
-            RestResponse response = await client.ExecuteAsync(request);
-
-
-            if (response.IsSuccessStatusCode)
-            {
-                Tarefa.Description = response.Content;
-            }
-            else
-            {
-                // Tratar o caso de erro na chamada à API ReceitaWS
-                // Exemplo: logar o erro, lançar uma exceção, etc.
-                throw new Exception("Erro ao consultar a ReceitaWS");
-            }
-
-
-            _context.Tarefas.Add(Tarefa);
-            await _context.SaveChangesAsync();
-        }
+      
 
     }
 }

@@ -12,9 +12,7 @@ namespace LocalizesApi.Services
         Task CreateTarefa(Tarefa aluno);
         Task UpdateTarefa(Tarefa aluno);
         Task DeleteTarefa(Tarefa aluno);
-
-        Task CreateTarefaByStatus(string Status);
-
+      
      
     }
 }
