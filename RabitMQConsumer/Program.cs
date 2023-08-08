@@ -1,11 +1,7 @@
 ﻿using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
-using Microsoft.Office.Interop.Outlook;
 using System.Text;
-using System.Net.Mail;
-using System.Net;
-using System.Numerics;
 using EASendMail;
 
 class Program
@@ -32,7 +28,10 @@ class Program
                 var message = Encoding.UTF8.GetString(body);
                 Console.WriteLine("Tasks message received: {message}" + message.ToString());
 
-               
+       
+                SendLogToRabbitMQ("ok "+message);
+
+             
                 SendEmailOutlook("luizgustavomoura20@gmail.com", "Mensagem da Fila", message.ToString());
             };
 
@@ -41,38 +40,29 @@ class Program
             Console.WriteLine("Consumer is running. Press any key to exit.");
             Console.ReadKey();
         }
-        catch (RabbitMQ.Client.Exceptions.BrokerUnreachableException ex)
-        {
-            Console.WriteLine("Erro ao conectar ao RabbitMQ: " + ex.Message);
-        }
-        catch (RabbitMQ.Client.Exceptions.ConnectFailureException ex)
-        {
-            Console.WriteLine("Falha na conexão com o RabbitMQ: " + ex.Message);
-        }
-        catch (RabbitMQ.Client.Exceptions.OperationInterruptedException ex)
-        {
-            Console.WriteLine("Interrupção de operação no RabbitMQ: " + ex.Message);
-        }
         catch (System.Exception ex)
         {
-            Console.WriteLine("Erro desconhecido: " + ex.Message);
+            Console.WriteLine("Erro : " + ex.Message);
+            SendLogToRabbitMQ("Erro : " + ex.Message.ToString());
         }
     }
+
+  
 
     static void SendEmailOutlook(string destinatarioEmail, string assunto, string mensagem)
     {
         try
         {
             SmtpMail oMail = new SmtpMail("TryIt");
-            oMail.From = "uizgustavomoura20@outlook.com";        
-            oMail.To = destinatarioEmail;         
-            oMail.Subject = assunto;     
+            oMail.From = "uizgustavomoura20@outlook.com";
+            oMail.To = destinatarioEmail;
+            oMail.Subject = assunto;
             oMail.TextBody = mensagem;
             SmtpServer oServer = new SmtpServer("smtp.office365.com");
- 
+
             oServer.User = "uizgustavomoura20@outlook.com";
-            oServer.Password = "guga131719";       
-            oServer.Port = 587;  
+            oServer.Password = "guga131719";
+            oServer.Port = 587;
             oServer.ConnectType = SmtpConnectType.ConnectSSLAuto;
 
             Console.WriteLine("Starting evio de email TLS...");
@@ -85,9 +75,24 @@ class Program
         catch (System.Exception ex)
         {
             Console.WriteLine("Erro ao enviar o e-mail: " + ex.Message);
+            SendLogToRabbitMQ("Erro ao enviar o e-mail: "+ ex.Message.ToString());
         }
     }
 
+    static void SendLogToRabbitMQ(string logMessage)
+    {
+        var factory = new ConnectionFactory
+        {
+            HostName = "localhost"
+        };
 
+        using var connection = factory.CreateConnection();
+        using var channel = connection.CreateModel();
 
+        channel.QueueDeclare("logs_queue", durable: false, exclusive: false, autoDelete: false, arguments: null);
+
+        var body = Encoding.UTF8.GetBytes(logMessage);
+        channel.BasicPublish(exchange: "", routingKey: "logs_queue", basicProperties: null, body: body);
+        Console.WriteLine($"Sent log to RabbitMQ: {logMessage}");
+    }
 }
